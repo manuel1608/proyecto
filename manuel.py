@@ -17,6 +17,16 @@ import math
 from datetime import date
 from datetime import datetime
 import time
+import mysql.connector
+
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="",
+  database="proyecto"
+)
+
+mycursor = mydb.cursor()
 today = date.today()
 print(today)
 now = str(datetime.now())
@@ -34,22 +44,48 @@ while si == realizar_otra_vez:
 		hipotenusa = int(input("dame valor de hipotenusa"))
 		resultado_1 = math.sqrt(hipotenusa**2 - cateto_b**2)
 		print(resultado_1)
-		
+		sql = "INSERT INTO pitagoras (cateto_adyacente,cateto_opuesto,hipotenusa,resultado) VALUES (%s, %s, %s, %s)"
+		val = (resultado_1,cateto_b,hipotenusa,resultado_1)
+		mycursor.execute(sql, val)
+
+		mydb.commit()
+
+		print(mycursor.rowcount, "record inserted.")
+				
 	elif(operacion == respuesta_b):	
 		cateto_a = int(input("dame el valor de cateto_a"))
 		hipotenusa = int(input("dame el valor de hipotenusa"))
-		resultado_2 = math.sqrt(hipotenusa**2 - cateto_a**2)
-		print(resultado_2)
-		
+		resultado_1 = math.sqrt(hipotenusa**2 - cateto_a**2)
+		print(resultado_1)
+		sql = "INSERT INTO pitagoras (cateto_adyacente,cateto_opuesto,hipotenusa,resultado) VALUES (%s, %s, %s, %s)"
+		val = (resultado_1,cateto_a,hipotenusa,resultado_1)
+		mycursor.execute(sql, val)
+
+		mydb.commit()
+
+		print(mycursor.rowcount, "record inserted.")
 	elif(operacion == respuesta_c):
 		cateto_a = int(input("dame el valor de cateto_a"))
 		cateto_b = int(input("dame el valor de cateto_b"))
-		resultado_3 = math.sqrt(cateto_a**2 + cateto_b**2)
-		print(resultado_3)
+		resultado_1 = math.sqrt(cateto_a**2 + cateto_b**2)
+		print(resultado_1)
+		sql = "INSERT INTO pitagoras (cateto_adyacente,cateto_opuesto,hipotenusa,resultado) VALUES (%s, %s, %s, %s)"
+		val = (resultado_1,cateto_a,cateto_b,resultado_1)
+		mycursor.execute(sql, val)
+
+		mydb.commit()
+
+		print(mycursor.rowcount, "record inserted.")
 
 	realizar_otra_vez = input("desea realizar otra operacion")
 	if(realizar_otra_vez == no):
 		print("adios" +" "+ now)
-		#manuel
-		#lalo
-		#jajjaja 
+		mycursor.execute("SELECT * FROM pitagoras")
+
+		myresult = mycursor.fetchall()
+
+		for x in myresult:
+			print(x)
+#manuel
+#lalo
+#jajjaja 
