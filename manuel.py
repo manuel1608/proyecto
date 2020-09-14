@@ -50,3 +50,4 @@ while si == realizar_otra_vez:
 	realizar_otra_vez = input("desea realizar otra operacion")
 	if(realizar_otra_vez == no):
 		print("adios" +" "+ now)
+		#manuel
