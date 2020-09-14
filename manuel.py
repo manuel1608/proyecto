@@ -51,4 +51,5 @@ while si == realizar_otra_vez:
 	if(realizar_otra_vez == no):
 		print("adios" +" "+ now)
 		#manuel
-		#lalo 
+		#lalo
+		#jajjaja 
